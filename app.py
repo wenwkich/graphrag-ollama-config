@@ -293,7 +293,7 @@ async def chat_graphrag(
 
     response = None
     if query == "/generate":
-        question_history = map(lambda x: x[0], history)
+        question_history = list(map(lambda x: x[0], history))
         # the first question is None
         if len(question_history) <= 1:
             question_history = None
