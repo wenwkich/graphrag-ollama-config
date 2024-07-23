@@ -111,20 +111,20 @@ async def global_search(query, input_dir, community_level=2, temperature=0.5, re
 
         map_llm_params = {
             "max_tokens": 1000,
-            "temperature": 0.0,
+            "temperature": temperature,
             "response_format": {"type": "json_object"},
         }
 
         reduce_llm_params = {
             "max_tokens": 2000,  # change this based on the token limit you have on your model (if you are using a model with 8k limit, a good setting could be 1000-1500)
-            "temperature": 0.0,
+            "temperature": temperature,
         }
 
         search_engine = GlobalSearch(
             llm=llm,
             context_builder=context_builder,
             token_encoder=token_encoder,
-            max_data_tokens=12_000,  # change this based on the token limit you have on your model (if you are using a model with 8k limit, a good setting could be 5000)
+            max_data_tokens=5000,  # change this based on the token limit you have on your model (if you are using a model with 8k limit, a good setting could be 5000)
             map_llm_params=map_llm_params,
             reduce_llm_params=reduce_llm_params,
             allow_general_knowledge=False,  # set this to True will add instruction to encourage the LLM to incorporate general knowledge in the response, which may increase hallucinations, but could be useful in some use cases.
@@ -228,7 +228,7 @@ def prepare_local_search(input_dir, community_level=2, temperature=0.5):
 
     llm_params = {
         "max_tokens": 2000,  # change this based on the token limit you have on your model (if you are using a model with 8k limit, a good setting could be 1000=1500)
-        "temperature": 0.0,
+        "temperature": temperature,
     }
 
     return llm, context_builder, token_encoder, llm_params, local_context_params
