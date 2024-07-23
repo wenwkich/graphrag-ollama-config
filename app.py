@@ -165,9 +165,9 @@ def prepare_local_search(input_dir, community_level=2, temperature=0.5):
     relationship_df = pd.read_parquet(join(input_dir, f"{RELATIONSHIP_TABLE}.parquet"))
     relationships = read_indexer_relationships(relationship_df)
 
-    covariate_df = pd.read_parquet(join(input_dir, f"{COVARIATE_TABLE}.parquet"))
-    claims = read_indexer_covariates(covariate_df)
-    covariates = {"claims": claims}
+    # covariate_df = pd.read_parquet(join(input_dir, f"{COVARIATE_TABLE}.parquet"))
+    # claims = read_indexer_covariates(covariate_df)
+    # covariates = {"claims": claims}
 
     report_df = pd.read_parquet(join(input_dir, f"{COMMUNITY_REPORT_TABLE}.parquet"))
     reports = read_indexer_reports(report_df, entity_df, community_level)
@@ -179,7 +179,7 @@ def prepare_local_search(input_dir, community_level=2, temperature=0.5):
     llm_model = os.environ["GRAPHRAG_LLM_MODEL"]
     embedding_model = os.environ["GRAPHRAG_EMBEDDING_MODEL"]
     api_llm_base = os.environ["GRAPHRAG_LLM_API_BASE"]
-    api_embedding_base = os.environ["GRAPHRAG_LLM_EMBEDDING_BASE"]
+    api_embedding_base = os.environ["GRAPHRAG_EMBEDDING_API_BASE"]
 
     llm = ChatOpenAI(
         api_key=api_key,
@@ -205,7 +205,6 @@ def prepare_local_search(input_dir, community_level=2, temperature=0.5):
         text_units=text_units,
         entities=entities,
         relationships=relationships,
-        covariates=covariates,
         entity_text_embeddings=description_embedding_store,
         embedding_vectorstore_key=EntityVectorStoreKey.ID,  # if the vectorstore uses entity title as ids, set this to EntityVectorStoreKey.TITLE
         text_embedder=text_embedder,
