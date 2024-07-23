@@ -4,9 +4,9 @@ skip_workflows: []
 llm:
   api_key: ${GRAPHRAG_API_KEY}
   type: openai_chat # or azure_openai_chat
-  model: llama3
+  model: mistral
   model_supports_json: true # recommended if this is available for your model.
-  max_tokens: 2000
+  max_tokens: 4000
   # request_timeout: 180.0
   api_base: http://localhost:11434/v1
   # api_version: 2024-02-15-preview
@@ -31,8 +31,8 @@ embeddings:
   llm:
     api_key: ${GRAPHRAG_API_KEY}
     type: openai_embedding # or azure_openai_embedding
-    model: nomic-ai/nomic-embed-text-v1.5-GGUF
-    api_base: http://localhost:1234/v1
+    model: nomic-embed-text
+    api_base: http://localhost:11434/v1
     # api_version: 2024-02-15-preview
     # organization: <organization_id>
     # deployment_name: <azure_model_deployment_name>
@@ -83,7 +83,7 @@ entity_extraction:
   ## parallelization: override the global parallelization settings for this task
   ## async_mode: override the global async_mode settings for this task
   prompt: "prompts/entity_extraction.txt"
-  entity_types: [organization,person,geo,event]
+  entity_types: [organization,person,geo,event,concept]
   max_gleanings: 0
 
 summarize_descriptions:
@@ -107,7 +107,7 @@ community_reports:
   ## parallelization: override the global parallelization settings for this task
   ## async_mode: override the global async_mode settings for this task
   prompt: "prompts/community_report.txt"
-  max_length: 2000
+  max_length: 4000
   max_input_length: 4000
 
 cluster_graph:
@@ -125,7 +125,7 @@ umap:
   enabled: false # if true, will generate UMAP embeddings for nodes
 
 snapshots:
-  graphml: false
+  graphml: true
   raw_entities: false
   top_level_nodes: false
 
