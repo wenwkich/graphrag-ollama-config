@@ -4,7 +4,7 @@ This repo is my settings for using the local LLM with graphrag
 ## Environment
 I'm using Ollama (llama3) on Windows and LM Studio (nomic-text-embed) for text embeddings
 
-Please don't use WSL because it will have issues connecting to the service on Windows (LM studio)
+Please don't use WSL because it will have issues connecting to the services on Windows (LM studio)
 
 ## Steps
 First, activate the conda enviroment
@@ -14,8 +14,8 @@ conda activate rag
 
 Clone this project then cd the directory
 ```
-git clone <this repo link>
-cd <folder name>
+git clone https://github.com/wenwkich/graphrag-ollama-config.git
+cd graphrag-ollama-config
 ```
 
 Then pull the code of graphrag and install the package 
@@ -39,7 +39,7 @@ Move your input text to `./input/`
 Double check the parameters in `.env` and `settings.yaml`, make sure in `setting.yaml`, 
 it should be "community_reports" instead of "community_report"
 
-Then tune the prompts (this is important, this will generate a much better result)
+Then finetune the prompts (this is important, this will generate a much better result)
 ```
 python -m graphrag.prompt_tune --root . --no-entity-types
 ```
