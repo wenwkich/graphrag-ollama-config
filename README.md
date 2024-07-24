@@ -1,14 +1,34 @@
 # Guide to build graphrag with local LLM
-This repo is my settings for using the local LLM with graphrag
+This repo is my settings for using the local LLM with graphrag, **this repo is still experimental, 
+so any config here is subject to change**
 
 ## Environment
-I'm using Ollama (llama3) on Windows and LM Studio (nomic-text-embed) for text embeddings
+I'm using Ollama (~~llama3~~ llama3.1) on Windows and ~~LM Studio (nomic-text-embed)~~ Ollama (nomic-text-embed) for text embeddings
 
-Please don't use WSL because it will have issues connecting to the services on Windows (LM studio)
+Please don't use WSL if you use LM studio for embeddings because it will have issues connecting to the services on Windows (LM studio)
 
-## Steps
+### IMPORTANT! Fix your model context length in Ollama
+
+Ollama's default context length is 2048, which might truncate the input and output when indexing
+
+First, pull the models we need to use
+
+```
+ollama serve
+# in another terminal
+ollama pull llama3.1
+ollama pull nomic-embed-text
+```
+
+Then build the model with the `Modelfile` in this repo
+```
+ollama create llama3.1-10k -f ./Modelfile
+```
+
+## Steps for GraphRAG Indexing
 First, activate the conda enviroment
 ```
+conda create -n rag python=<any version below 3.12>
 conda activate rag
 ```
 
@@ -18,9 +38,9 @@ git clone https://github.com/wenwkich/graphrag-ollama-config.git
 cd graphrag-ollama-config
 ```
 
-Then pull the code of graphrag and install the package 
+Then pull the code of graphrag (I'm using a local fix for graphrag here) and install the package 
 ```
-git clone https://github.com/microsoft/graphrag.git
+git clone https://github.com/TheAiSingularity/graphrag-local-ollama.git
 pip install -e ./graphrag
 ```
 
@@ -76,3 +96,35 @@ To use the app, visit http://127.0.0.1:7860/
 Make sure you select the valid output folder before you query
 
 Note that "/generate" will disregard the query type and generate questions with a local search
+
+## Troubleshooting
+
+### "Columns must be same length as key"
+
+This is usually API issue, check your `settings.yaml` if the `api_base` and `model` under `llm` is correct
+
+### "Failed to generate valid JSON output" 
+
+This is due to a function `is_response_valid` in the code, in most scenerio the json is actually valid, 
+but was rejected by this function for some reason
+
+Fix line 67 in the file `graphrag\llm\openai\openai_chat_llm.py`
+
+```python
+        # is_response_valid = kwargs.get("is_response_valid") or (lambda _x: True)
+        is_response_valid = lambda _x: True
+```
+
+Restart the indexing and you will find out it will start from the last checkpoint
+
+### JSON output for community report get truncated, getting JSONDecodeError
+
+This is most likely because ollama's context window is set to 2048 by default, 
+check `ollama show llama3.1 --parameters`, the output doesn't include `num_ctx`,
+then it's the default value 2048, so the json output will get truncated
+
+To fix it, normally needs to use ollama's api and add `num_ctx` options to it
+
+Now Ollama's OpenAI compatible API doens't support this config, we have to hack into the model
+
+Please refer to the Environment section to see how to fix the problem

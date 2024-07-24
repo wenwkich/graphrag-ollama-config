@@ -4,7 +4,7 @@ skip_workflows: []
 llm:
   api_key: ${GRAPHRAG_API_KEY}
   type: openai_chat # or azure_openai_chat
-  model: mistral
+  model: llama3.1-10k
   model_supports_json: true # recommended if this is available for your model.
   max_tokens: 4000
   # request_timeout: 180.0
@@ -14,7 +14,7 @@ llm:
   # deployment_name: <azure_model_deployment_name>
   # tokens_per_minute: 150_000 # set a leaky bucket throttle
   # requests_per_minute: 10_000 # set a leaky bucket throttle
-  max_retries: 3
+  max_retries: 5
   # max_retry_wait: 10.0
   # sleep_on_rate_limit_recommendation: true # whether to sleep when azure suggests wait-times
   concurrent_requests: 1 # the number of parallel inflight requests that may be made
@@ -38,12 +38,12 @@ embeddings:
     # deployment_name: <azure_model_deployment_name>
     # tokens_per_minute: 150_000 # set a leaky bucket throttle
     # requests_per_minute: 10_000 # set a leaky bucket throttle
-    max_retries: 3
+    max_retries: 5
     # max_retry_wait: 10.0
     # sleep_on_rate_limit_recommendation: true # whether to sleep when azure suggests wait-times
     concurrent_requests: 1 # the number of parallel inflight requests that may be made
     batch_size: 1 # the number of documents to send in a single request
-    batch_max_tokens: 4000 # the maximum number of tokens to send in a single request
+    batch_max_tokens: 8000 # the maximum number of tokens to send in a single request
     # target: required # or optional
   
 
@@ -107,8 +107,8 @@ community_reports:
   ## parallelization: override the global parallelization settings for this task
   ## async_mode: override the global async_mode settings for this task
   prompt: "prompts/community_report.txt"
-  max_length: 4000
-  max_input_length: 4000
+  # max_length: 2000
+  # max_input_length: 8000
 
 cluster_graph:
   max_cluster_size: 10
@@ -125,7 +125,7 @@ umap:
   enabled: false # if true, will generate UMAP embeddings for nodes
 
 snapshots:
-  graphml: true
+  graphml: false
   raw_entities: false
   top_level_nodes: false
 
