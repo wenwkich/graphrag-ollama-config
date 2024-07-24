@@ -1,6 +1,8 @@
 # Guide to build graphrag with local LLM
-This repo is my settings for using the local LLM with graphrag, **this repo is still experimental, 
+This repo is my settings for using the local LLM with graphrag, also comes with a convenient UI, **this repo is still experimental, 
 so any config here is subject to change**
+
+![image](Screenshot 2024-07-24 075142.png)
 
 ## Environment
 I'm using Ollama (~~llama3~~ llama3.1) on Windows and ~~LM Studio (nomic-text-embed)~~ Ollama (nomic-text-embed) for text embeddings
@@ -11,9 +13,11 @@ Please don't use WSL if you use LM studio for embeddings because it will have is
 
 Ollama's default context length is 2048, which might truncate the input and output when indexing
 
-I'm using 12k context here (10*1024=12288), I tried using 10k before, but the result still gets truncated
+I'm using 12k context here (10*1024=12288), I tried using 10k before, but the results still gets truncated
 
 **Input / Output truncated might get you a completely out of context report in local search!!**
+
+Note that if you change the model in `setttings.yaml` and try to reindex, it will restart the whole indexing!
 
 First, pull the models we need to use
 
