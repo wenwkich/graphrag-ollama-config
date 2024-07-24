@@ -22,7 +22,7 @@ ollama pull nomic-embed-text
 
 Then build the model with the `Modelfile` in this repo
 ```
-ollama create llama3.1-10k -f ./Modelfile
+ollama create llama3.1-12k -f ./Modelfile
 ```
 
 ## Steps for GraphRAG Indexing
