@@ -295,8 +295,8 @@ async def chat_graphrag(
     if query == "/generate":
         question_history = list(map(lambda x: x[0], history))
         # the first question is None
-        if len(question_history) <= 1:
-            question_history = None
+        if question_history and len(question_history) <= 1:
+            question_history = []
         else: 
             question_history = question_history[1:]
         response = await local_question_generate(
