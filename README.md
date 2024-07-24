@@ -48,7 +48,7 @@ cd graphrag-ollama-config
 
 Then pull the code of graphrag (I'm using a local fix for graphrag here) and install the package 
 ```
-git clone https://github.com/TheAiSingularity/graphrag-local-ollama.git
+git clone https://github.com/wenwkich/graphrag-ollama.git
 pip install -e ./graphrag
 ```
 
@@ -139,4 +139,8 @@ To fix it, normally needs to use ollama's api and add `num_ctx` options to it
 
 Now Ollama's OpenAI compatible API doens't support this config, we have to hack into the model
 
-Please refer to the Environment section to see how to fix the problem
+Please refer to the [Environment](#IMPORTANT-Fix-your-model-context-length-in-Ollama) section to see how to fix the problem
+
+### Embedding problems ("ZeroDivisionError: Weights sum to zero")
+
+Use a local fix [repo](https://github.com/wenwkich/graphrag-ollama) will help [](#Steps-for-GraphRAG-Indexing)
