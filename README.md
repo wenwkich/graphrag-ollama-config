@@ -2,7 +2,7 @@
 This repo is my settings for using the local LLM with graphrag, also comes with a convenient UI, **this repo is still experimental, 
 so any config here is subject to change**
 
-![image](./Screenshot 2024-07-24 075142.png)
+![image](UI.png)
 
 ## Environment
 I'm using Ollama (~~llama3~~ llama3.1) on Windows and ~~LM Studio (nomic-text-embed)~~ Ollama (nomic-text-embed) for text embeddings
