@@ -105,6 +105,10 @@ Make sure you select the valid output folder before you query
 
 Note that "/generate" will disregard the query type and generate questions with a local search
 
+### Known bug
+
+* "/generate" is not usable at the moment
+
 ## Troubleshooting
 
 ### "Columns must be same length as key"
