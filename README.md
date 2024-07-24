@@ -11,6 +11,10 @@ Please don't use WSL if you use LM studio for embeddings because it will have is
 
 Ollama's default context length is 2048, which might truncate the input and output when indexing
 
+I'm using 12k context here (10*1024=12288), I tried using 10k before, but the result still gets truncated
+
+**Input / Output truncated might get you a completely out of context report in local search!!**
+
 First, pull the models we need to use
 
 ```
