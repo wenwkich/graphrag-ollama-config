@@ -68,8 +68,10 @@ Double check the parameters in `.env` and `settings.yaml`, make sure in `setting
 it should be "community_reports" instead of "community_report"
 
 Then finetune the prompts (this is important, this will generate a much better result)
+
+You can find more about how to tune prompts [here](https://microsoft.github.io/graphrag/posts/prompt_tuning/auto_prompt_tuning/)
 ```
-python -m graphrag.prompt_tune --root . --no-entity-types
+python -m graphrag.prompt_tune --root . --domain "<your domain here>" --method random --limit 20 --language English --max-tokens 2048 --chunk-size 256  --no-entity-types --output ./prompts
 ```
 
 Then you can start the indexing
